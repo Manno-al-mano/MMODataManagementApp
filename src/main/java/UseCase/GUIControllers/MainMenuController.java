@@ -53,7 +53,9 @@ public class MainMenuController {
         listaGraczy.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Assuming moderatorInfo is the Text node you want to update
-                moderatorInfo.setText(gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu().toString());
+                moderatorInfo.setText((gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu()==null)?
+                        "Brak ostatniego Moderatora":
+                        (gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu().toString()));
 
             }
         });

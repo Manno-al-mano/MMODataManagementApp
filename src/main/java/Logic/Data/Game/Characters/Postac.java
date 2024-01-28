@@ -28,8 +28,9 @@ public abstract class Postac {
     private int zloto;
 
 
-
-
+    public Long getId() {
+        return id;
+    }
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "gracz_id")

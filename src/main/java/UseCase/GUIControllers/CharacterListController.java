@@ -40,7 +40,18 @@ public class CharacterListController {
     }
 
     public void deleteCharacter(ActionEvent event) {
-        //listaChar
+
+        Postac selected = postaci.get(listaChar.getSelectionModel().getSelectedIndex());
+        DatabaseManager.getInstance().deleteCharacter(selected);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(new Scene(loader.load()));
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 

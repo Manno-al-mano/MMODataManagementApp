@@ -2,7 +2,12 @@ package Logic.DatabaseOperations;
 
 import Constants.Messages;
 import Constants.PersistenceNames;
+import Logic.Data.Game.Characters.AtrybutyPostaci;
 import Logic.Data.Game.Characters.Postac;
+import Logic.Data.Game.Characters.PostacFizyczna;
+import Logic.Data.Game.Characters.PostacMagiczna;
+import Logic.Data.Game.Items.Przedmiot;
+import Logic.Data.Game.Items.PrzedmiotWEkwipunku;
 import Logic.Data.Users.Moderation.MistrzGry;
 import Logic.Data.Users.Moderation.ModeratorCzatu;
 import Logic.Data.Users.Playerbase.Gracz;
@@ -82,10 +87,28 @@ public class DatabaseManager {
         return null;
     }
 
+
     public void deleteCharacter(Postac postac) {
         em.getTransaction().begin();
-        Postac charToDelete = em.merge(postac);
-        em.remove(charToDelete);
+        Postac charToDelete = em.find(Postac.class, postac.getId());
+        charToDelete.getPrzedmioty().clear();
+
+       charToDelete.getAtrybuty().clear();
+
+        if(postac.getAspekt().getClass()== PostacMagiczna.class){
+            PostacMagiczna postacMagiczna = (PostacMagiczna) charToDelete.getAspekt();
+            postacMagiczna.getZaklecia().clear();
+            em.merge(postacMagiczna);
+        }
+       else if (postac.getAspekt().getClass()== PostacFizyczna.class){
+            PostacFizyczna postacFizyczna = (PostacFizyczna) charToDelete.getAspekt();
+            postacFizyczna.getArtefakty().clear();
+            em.merge(postacFizyczna);
+        }
+       em.merge(charToDelete);
+            em.remove(charToDelete);
+
+
         em.getTransaction().commit();
         message=Messages.DELETED;
     }

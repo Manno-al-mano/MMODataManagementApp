@@ -38,4 +38,6 @@ public class PostacMagiczna extends Aspekt{
     public List<Zaklecie> getZaklecia() {
         return zaklecia;
     }
+
+
 }

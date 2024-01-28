@@ -31,7 +31,7 @@ public class MessageController {
     @FXML
     void back(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MAINMENU));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MODERATORLIST));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
