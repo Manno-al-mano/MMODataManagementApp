@@ -34,6 +34,10 @@ public class DatabaseManager {
 
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public static DatabaseManager getInstance() {
         if (instance == null) {
             synchronized (DatabaseManager.class) {
@@ -58,7 +62,10 @@ public class DatabaseManager {
     }
 
     public Gracz getGracz() {
+
         return gracz;
+
+
     }
 
     public void setGracz(Gracz gracz) {
@@ -86,7 +93,17 @@ public class DatabaseManager {
         }
         return null;
     }
-
+    //"SELECT AVG(p.level) FROM Postac p"
+    public double takeAverageLevel(){
+       try {
+           String jpql = "SELECT AVG(p.level) FROM Postac p";
+           TypedQuery<Double> query = em.createQuery(jpql, Double.class);
+           return query.getSingleResult();
+       }catch (Exception e) {
+           e.printStackTrace();
+       }
+       return 0.0;
+    }
 
     public void deleteCharacter(Postac postac) {
         em.getTransaction().begin();
@@ -109,16 +126,17 @@ public class DatabaseManager {
         }
        else if (postac.getAspekt().getClass()== PostacFizyczna.class){
             PostacFizyczna postacFizyczna = (PostacFizyczna) charToDelete.getAspekt();
-            postacFizyczna.getArtefakty().clear();
-            for (int i = 0; i < postacFizyczna.getArtefakty().size(); i++) {
-                em.remove(postacFizyczna.getArtefakty().get(i));
+            for(String key: postacFizyczna.getArtefakty().keySet()){
+                em.remove(postacFizyczna.getArtefakty().get(key));
             }
+            postacFizyczna.getArtefakty().clear();
         }
-             em.merge(charToDelete);
+            // em.merge(charToDelete);
             em.remove(charToDelete);
 
 
         em.getTransaction().commit();
+        em.clear();
         message=Messages.DELETED;
     }
     private boolean checkforNull() {

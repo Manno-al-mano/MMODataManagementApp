@@ -1,11 +1,14 @@
 package Logic.Data.Game.Characters;
 
+import Constants.PersistenceNames;
 import Logic.Data.Game.Items.Przedmiot;
 import Logic.Data.Game.Items.PrzedmiotWEkwipunku;
 import Logic.Data.Users.Playerbase.Gracz;
+import Logic.DatabaseOperations.DatabaseManager;
 import jakarta.persistence.*;
 import javafx.geometry.Pos;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,12 @@ public abstract class Postac {
     @Column (nullable = true)
     private int zloto;
 
+    private static double averageLevel;
+
+    public static double getAverageLevel() {
+        averageLevel = DatabaseManager.getInstance().takeAverageLevel();
+        return averageLevel;
+    }
 
     public Long getId() {
         return id;

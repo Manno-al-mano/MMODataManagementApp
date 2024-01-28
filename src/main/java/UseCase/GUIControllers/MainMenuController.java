@@ -1,6 +1,8 @@
 package UseCase.GUIControllers;
 
 import Constants.FxmlNames;
+import Constants.Messages;
+import Logic.Data.Users.Moderation.MistrzGry;
 import Logic.Data.Users.Moderation.ModeratorCzatu;
 import Logic.Data.Users.Playerbase.Gracz;
 import Logic.DatabaseOperations.DatabaseManager;
@@ -45,7 +47,7 @@ public class MainMenuController {
         gracze = FXCollections.observableArrayList(DatabaseManager.getInstance().getPlayers());
         List<String> nicks= new ArrayList<>();
         for (Gracz gracz : gracze)
-            nicks.add(gracz.getNick()+", "+ gracz.getDataZmianyCzatu());
+            nicks.add(gracz.getNick()+", "+ (gracz.getDataZmianyCzatu()==null?"Brak Daty":gracz.getDataZmianyCzatu()));
         ObservableList<String> observableList = FXCollections.observableArrayList(nicks);
         listaGraczy.setItems(observableList);
         listaGraczy.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -92,10 +94,19 @@ public class MainMenuController {
     void showCharacters(ActionEvent event){
         try {
             if(listaGraczy.getSelectionModel().getSelectedItem()!=null) {
-                DatabaseManager.getInstance().setGracz(gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()));
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.CHARACTERS));
-                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                currentStage.setScene(new Scene(loader.load()));
+                if(DatabaseManager.getInstance().getModeratorCzatu().getClass()== MistrzGry.class) {
+                    DatabaseManager.getInstance().setGracz(gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.CHARACTERS));
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.setScene(new Scene(loader.load()));
+                }
+                else{
+                   DatabaseManager.getInstance().setMessage(Messages.MGREQ);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.setScene(new Scene(loader.load()));
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();

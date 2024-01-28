@@ -24,7 +24,7 @@ public class PostacFizyczna extends Aspekt{
     }
     public void addArtefakt(Artefakt artefakt){
         artefakty.put(artefakt.getNazwa(),artefakt);
-        if (postac.getPrzedmioty().contains(artefakt))
+        if (!postac.getPrzedmioty().contains(artefakt))
             postac.addPrzedmiot(artefakt,1);
         if (artefakt.getPostacFizyczna()==null){
             artefakt.setPostacFizyczna(this);
