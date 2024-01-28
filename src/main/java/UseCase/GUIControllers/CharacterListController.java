@@ -42,7 +42,13 @@ public class CharacterListController {
     public void deleteCharacter(ActionEvent event) {
 
         Postac selected = postaci.get(listaChar.getSelectionModel().getSelectedIndex());
-        DatabaseManager.getInstance().deleteCharacter(selected);
+       DatabaseManager.getInstance().deleteCharacter(selected);
+       postaci.remove(listaChar.getSelectionModel().getSelectedIndex());
+        List<String> names= new ArrayList<>();
+        for (Postac postac : postaci)
+            names.add(postac.getImie()+", Level: " +postac.getLvl());
+        ObservableList<String> observableList = FXCollections.observableArrayList(names);
+        listaChar.setItems(observableList);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

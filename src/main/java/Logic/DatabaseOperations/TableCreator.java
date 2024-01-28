@@ -84,6 +84,8 @@ public class TableCreator {
         klan1.setPrzywodcaKlanu(szef1);
         klan2.setPrzywodcaKlanu(szef2);
 
+
+
         Postac postac1 = new PostacDPS("Lenz", 26_000, 150, gracz1, 150);
         Postac postac2 = new PostacWsparcia("Vivian", 50, 150, gracz1, 150);
         Postac postac3 = new PostacDPS("Sarevok", 50_000, 150, gracz2, 150);
@@ -176,6 +178,12 @@ postac2.addAtrybut(atrybut6,4);
         aspekt1.addArtefakt(artefakt1);
         aspekt1.addArtefakt(artefakt2);
         aspekt4.addArtefakt(artefakt3);
+
+        em.persist(gracz1);
+        em.persist(gracz2);
+        em.persist(gracz3);
+        em.persist(szef1);
+        em.persist(szef2);
 
         em.persist(bron1);
         em.persist(bron2);

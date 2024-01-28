@@ -32,11 +32,11 @@ public abstract class Postac {
         return id;
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "gracz_id")
     private Gracz gracz;
 
-    @ManyToMany(mappedBy = "postac",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "postac",cascade = {CascadeType.ALL})
     private List<PrzedmiotWEkwipunku> przedmioty;
 
     @OneToMany(mappedBy = "postac", cascade = CascadeType.ALL)

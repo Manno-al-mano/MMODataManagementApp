@@ -91,9 +91,16 @@ public class DatabaseManager {
     public void deleteCharacter(Postac postac) {
         em.getTransaction().begin();
         Postac charToDelete = em.find(Postac.class, postac.getId());
-        charToDelete.getPrzedmioty().clear();
+        for (int i = 0; i < charToDelete.getPrzedmioty().size(); i++) {
+            em.remove(charToDelete.getPrzedmioty().get(i));
+        }
+        for (int i = 0; i < charToDelete.getAtrybuty().size(); i++) {
+            em.remove(charToDelete.getAtrybuty().get(i));
+        }
 
+        charToDelete.getPrzedmioty().clear();
        charToDelete.getAtrybuty().clear();
+     //  em.merge(charToDelete);
 
         if(postac.getAspekt().getClass()== PostacMagiczna.class){
             PostacMagiczna postacMagiczna = (PostacMagiczna) charToDelete.getAspekt();
@@ -103,9 +110,11 @@ public class DatabaseManager {
        else if (postac.getAspekt().getClass()== PostacFizyczna.class){
             PostacFizyczna postacFizyczna = (PostacFizyczna) charToDelete.getAspekt();
             postacFizyczna.getArtefakty().clear();
-            em.merge(postacFizyczna);
+            for (int i = 0; i < postacFizyczna.getArtefakty().size(); i++) {
+                em.remove(postacFizyczna.getArtefakty().get(i));
+            }
         }
-       em.merge(charToDelete);
+             em.merge(charToDelete);
             em.remove(charToDelete);
 
 
