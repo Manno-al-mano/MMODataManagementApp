@@ -234,7 +234,6 @@ public class DatabaseManager {
 
     public void closeSessionFactory() {
         em.close();
-
         emf.close();
     }
 }

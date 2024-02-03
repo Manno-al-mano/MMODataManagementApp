@@ -39,6 +39,7 @@ public class TableCreator {
         em.close();
         emf.close();
     }
+
     public static void fillWithData(EntityManager em) {
         Osoba osoba1 = new Osoba("Martin", "Peterson", "aaa@mail.com");
 
@@ -85,7 +86,6 @@ public class TableCreator {
         klan2.setPrzywodcaKlanu(szef2);
 
 
-
         Postac postac1 = new PostacDPS("Lenz", 26_000, 150, gracz1, 150);
         Postac postac2 = new PostacWsparcia("Vivian", 50, 150, gracz1, 150);
         Postac postac3 = new PostacDPS("Sarevok", 50_000, 150, gracz2, 150);
@@ -119,9 +119,9 @@ public class TableCreator {
         postac9.setAspekt(aspekt9);
         postac10.setAspekt(aspekt10);
 
-        Zaklecie kulaOgnia = new Zaklecie("Rzuca kulę ognia",30);
-        Zaklecie leczenie = new Zaklecie("leczy Cel",50);
-        Zaklecie palecSmierci = new Zaklecie("Zabija Cel",100);
+        Zaklecie kulaOgnia = new Zaklecie("Rzuca kulę ognia", 30);
+        Zaklecie leczenie = new Zaklecie("leczy Cel", 50);
+        Zaklecie palecSmierci = new Zaklecie("Zabija Cel", 100);
 
         aspekt2.addZaklecie(leczenie);
         aspekt2.addZaklecie(kulaOgnia);
@@ -133,29 +133,29 @@ public class TableCreator {
         aspekt7.addZaklecie(kulaOgnia);
         aspekt10.addZaklecie(palecSmierci);
 
-        Atrybut atrybut1= new Atrybut(NazwaAtrybutu.Sila);
-        Atrybut atrybut2= new Atrybut(NazwaAtrybutu.SilaWoli);
-        Atrybut atrybut3= new Atrybut(NazwaAtrybutu.Charyzma);
-        Atrybut atrybut4= new Atrybut(NazwaAtrybutu.Kondycja);
-        Atrybut atrybut5= new Atrybut(NazwaAtrybutu.Zrecznosc);
-        Atrybut atrybut6= new Atrybut(NazwaAtrybutu.Inteligencja);
+        Atrybut atrybut1 = new Atrybut(NazwaAtrybutu.Sila);
+        Atrybut atrybut2 = new Atrybut(NazwaAtrybutu.SilaWoli);
+        Atrybut atrybut3 = new Atrybut(NazwaAtrybutu.Charyzma);
+        Atrybut atrybut4 = new Atrybut(NazwaAtrybutu.Kondycja);
+        Atrybut atrybut5 = new Atrybut(NazwaAtrybutu.Zrecznosc);
+        Atrybut atrybut6 = new Atrybut(NazwaAtrybutu.Inteligencja);
 
-postac1.addAtrybut(atrybut1,3);
-postac1.addAtrybut(atrybut2,3);
-postac1.addAtrybut(atrybut3,3);
-postac1.addAtrybut(atrybut4,3);
-postac1.addAtrybut(atrybut5,3);
-postac1.addAtrybut(atrybut6,3);
-postac2.addAtrybut(atrybut1,4);
-postac2.addAtrybut(atrybut2,4);
-postac2.addAtrybut(atrybut3,4);
-postac2.addAtrybut(atrybut4,4);
-postac2.addAtrybut(atrybut5,4);
-postac2.addAtrybut(atrybut6,4);
+        postac1.addAtrybut(atrybut1, 3);
+        postac1.addAtrybut(atrybut2, 3);
+        postac1.addAtrybut(atrybut3, 3);
+        postac1.addAtrybut(atrybut4, 3);
+        postac1.addAtrybut(atrybut5, 3);
+        postac1.addAtrybut(atrybut6, 3);
+        postac2.addAtrybut(atrybut1, 4);
+        postac2.addAtrybut(atrybut2, 4);
+        postac2.addAtrybut(atrybut3, 4);
+        postac2.addAtrybut(atrybut4, 4);
+        postac2.addAtrybut(atrybut5, 4);
+        postac2.addAtrybut(atrybut6, 4);
 
         Przedmiot przedmiot1 = new Przedmiot("Lina", 10, KategoriaPrzedmiotu.Codzienny);
-        Przedmiot przedmiot2 = new Przedmiot("Kryształ many", 500,KategoriaPrzedmiotu.Magiczny);
-        Przedmiot przedmiot3 = new Przedmiot("Chronotron", 100000,KategoriaPrzedmiotu.Magiczny);
+        Przedmiot przedmiot2 = new Przedmiot("Kryształ many", 500, KategoriaPrzedmiotu.Magiczny);
+        Przedmiot przedmiot3 = new Przedmiot("Chronotron", 100000, KategoriaPrzedmiotu.Magiczny);
 
         postac3.addPrzedmiot(przedmiot1, 5);
         postac3.addPrzedmiot(przedmiot2, 5);
@@ -164,16 +164,16 @@ postac2.addAtrybut(atrybut6,4);
         postac6.addPrzedmiot(przedmiot3, 1);
         postac7.addPrzedmiot(przedmiot1, 3);
 
-        Bron bron1 = new Bron("Miecz",120,KategoriaPrzedmiotu.Bojowy,10,10);
-        Bron bron2 = new Bron("Sztylet",30,KategoriaPrzedmiotu.Bojowy,5,30);
+        Bron bron1 = new Bron("Miecz", 120, KategoriaPrzedmiotu.Bojowy, 10, 10);
+        Bron bron2 = new Bron("Sztylet", 30, KategoriaPrzedmiotu.Bojowy, 5, 30);
 
-        postac8.addPrzedmiot(bron1,1);
-        postac9.addPrzedmiot(bron2,1);
-        postac10.addPrzedmiot(bron2,2);
+        postac8.addPrzedmiot(bron1, 1);
+        postac9.addPrzedmiot(bron2, 1);
+        postac10.addPrzedmiot(bron2, 2);
 
-        Artefakt artefakt1 = new Artefakt("Egida Pokoju",500000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Ziemia");
-        Artefakt artefakt2 = new Artefakt("Ostatni Tkacz Magii",750000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Eter");
-        Artefakt artefakt3 = new Artefakt("Dominium Progenitora",1000000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Eter");
+        Artefakt artefakt1 = new Artefakt("Egida Pokoju", 500000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Ziemia");
+        Artefakt artefakt2 = new Artefakt("Ostatni Tkacz Magii", 750000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Eter");
+        Artefakt artefakt3 = new Artefakt("Dominium Progenitora", 1000000, KategoriaPrzedmiotu.Magiczny, 50, 15, "Eter");
 
         aspekt1.addArtefakt(artefakt1);
         aspekt1.addArtefakt(artefakt2);
@@ -223,11 +223,10 @@ postac2.addAtrybut(atrybut6,4);
     }
 
 
-
     public static void main(String[] args) {
         createTable();
     }
-        }
+}
 
 
 
