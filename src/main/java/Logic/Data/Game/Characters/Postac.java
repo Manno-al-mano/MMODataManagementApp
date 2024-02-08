@@ -167,17 +167,11 @@ public abstract class Postac {
 
         @Override
     public String toString() {
-        return "Postac{" +
-                "id=" + id +
-                ", imie='" + imie + '\'' +
+        return "id=" + id +
+                ", " + imie +
                 ", doswiadczenie=" + doswiadczenie +
                 ", hp=" + hp +
                 ", lvl=" + lvl +
-                ", zloto=" + zloto +
-                ", gracz=" + gracz +
-                ", przedmioty=" + przedmioty +
-                ", atrybuty=" + atrybuty +
-                ", aspekt=" + aspekt +
-                '}';
+                ", aspekt=" + aspekt;
     }
 }

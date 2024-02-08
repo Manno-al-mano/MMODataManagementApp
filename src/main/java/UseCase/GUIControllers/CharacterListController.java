@@ -25,30 +25,22 @@ import java.util.List;
 public class CharacterListController {
 
     @FXML
-    private ListView<String> listaChar;
+    private ListView<Postac> listaChar;
 
     private ObservableList<Postac> postaci;
     @FXML
     public void initialize() {
         postaci = FXCollections.observableArrayList(DatabaseManager.getInstance().getGracz().getPostaci());
-        List<String> names= new ArrayList<>();
-        for (Postac postac : postaci)
-            names.add(postac.getImie()+", Level: " +postac.getLvl());
-        ObservableList<String> observableList = FXCollections.observableArrayList(names);
-        listaChar.setItems(observableList);
+        listaChar.setItems(postaci);
         listaChar.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void deleteCharacter(ActionEvent event) {
 
-        Postac selected = postaci.get(listaChar.getSelectionModel().getSelectedIndex());
+        Postac selected = listaChar.getSelectionModel().getSelectedItem();
        DatabaseManager.getInstance().deleteCharacter(selected);
-       postaci.remove(listaChar.getSelectionModel().getSelectedIndex());
-        List<String> names= new ArrayList<>();
-        for (Postac postac : postaci)
-            names.add(postac.getImie()+", Level: " +postac.getLvl());
-        ObservableList<String> observableList = FXCollections.observableArrayList(names);
-        listaChar.setItems(observableList);
+       postaci.remove(listaChar.getSelectionModel().getSelectedItem());
+        listaChar.setItems(postaci);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

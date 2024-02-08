@@ -37,4 +37,8 @@ public class PostacFizyczna extends Aspekt{
     public Map<String, Artefakt> getArtefakty() {
         return artefakty;
     }
+
+    public String toString(){
+        return "Postać Fizyczna";
+    }
 }

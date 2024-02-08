@@ -30,4 +30,9 @@ public class Aspekt {
             this.postac.setAspekt(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Aspekt{}";
+    }
 }

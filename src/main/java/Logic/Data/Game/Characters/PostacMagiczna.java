@@ -39,5 +39,8 @@ public class PostacMagiczna extends Aspekt{
         return zaklecia;
     }
 
+    public String toString(){
+        return "Postać Magiczna";
+    }
 
 }

@@ -3,7 +3,6 @@ package UseCase.GUIControllers;
 import Constants.FxmlNames;
 import Constants.Messages;
 import Logic.Data.Users.Moderation.MistrzGry;
-import Logic.Data.Users.Moderation.ModeratorCzatu;
 import Logic.Data.Users.Playerbase.Gracz;
 import Logic.DatabaseOperations.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,44 +18,35 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainMenuController {
 
+    ObservableList<Gracz> gracze;
     @FXML
-    private ListView<String> listaGraczy;
-
+    private ListView<Gracz> listaGraczy;
     @FXML
     private Text moderatorInfo;
-
     @FXML
     private Button powrot;
-
     @FXML
     private Button characters;
-
     @FXML
     private Button submit;
-    ObservableList<Gracz> gracze;
+
     @FXML
     public void initialize() {
         gracze = FXCollections.observableArrayList(DatabaseManager.getInstance().getPlayers());
-        List<String> nicks= new ArrayList<>();
-        for (Gracz gracz : gracze)
-            nicks.add(gracz.getNick()+", "+ (gracz.getDataZmianyCzatu()==null?"Brak Daty":gracz.getDataZmianyCzatu()));
-        ObservableList<String> observableList = FXCollections.observableArrayList(nicks);
-        listaGraczy.setItems(observableList);
+        listaGraczy.setItems(gracze);
         listaGraczy.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         listaGraczy.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Assuming moderatorInfo is the Text node you want to update
-                moderatorInfo.setText((gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu()==null)?
-                        "Brak ostatniego Moderatora":
-                        (gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu().toString()));
+                moderatorInfo.setText((gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()).getModeratorCzatu() == null) ?
+                        "Brak ostatniego Moderatora" :
+                        ((listaGraczy.getSelectionModel().getSelectedItem()).getModeratorCzatu().toString())
+                );
 
             }
         });
@@ -78,8 +67,8 @@ public class MainMenuController {
     @FXML
     void changestatus(ActionEvent event) {
         try {
-            if(listaGraczy.getSelectionModel().getSelectedItem()!=null) {
-                DatabaseManager.getInstance().setGracz(gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()));
+            if (listaGraczy.getSelectionModel().getSelectedItem() != null) {
+                DatabaseManager.getInstance().setGracz(listaGraczy.getSelectionModel().getSelectedItem());
                 DatabaseManager.getInstance().checkRelation();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
                 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -91,17 +80,16 @@ public class MainMenuController {
     }
 
     @FXML
-    void showCharacters(ActionEvent event){
+    void showCharacters(ActionEvent event) {
         try {
-            if(listaGraczy.getSelectionModel().getSelectedItem()!=null) {
-                if(DatabaseManager.getInstance().getModeratorCzatu().getClass()== MistrzGry.class) {
-                    DatabaseManager.getInstance().setGracz(gracze.get(listaGraczy.getSelectionModel().getSelectedIndex()));
+            if (listaGraczy.getSelectionModel().getSelectedItem() != null) {
+                if (DatabaseManager.getInstance().getModeratorCzatu().getClass() == MistrzGry.class) {
+                    DatabaseManager.getInstance().setGracz(listaGraczy.getSelectionModel().getSelectedItem());
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.CHARACTERS));
                     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     currentStage.setScene(new Scene(loader.load()));
-                }
-                else{
-                   DatabaseManager.getInstance().setMessage(Messages.MGREQ);
+                } else {
+                    DatabaseManager.getInstance().setMessage(Messages.MGREQ);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MESSAGE));
                     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     currentStage.setScene(new Scene(loader.load()));

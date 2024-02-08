@@ -137,5 +137,11 @@ public class Gracz {
         this.dataZmianyCzatu = dataZmianyCzatu;
     }
 
-
+    @Override
+    public String toString() {
+        return
+                 nick +
+                ", Czy MozeUzywac Czat = " + czyMozeUzywacCzat +
+                ", Data Zmiany Czatu = " + dataZmianyCzatu;
+    }
 }

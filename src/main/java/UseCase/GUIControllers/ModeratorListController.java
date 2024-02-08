@@ -24,19 +24,16 @@ public class ModeratorListController {
     private Button exitButton;
 
     @FXML
-    private ListView<String> listaMod;
-    private List<ModeratorCzatu> mods;
+    private ListView<ModeratorCzatu> listaMod;
+    private ObservableList<ModeratorCzatu> mods;
 
     @FXML
     private Button submitButton;
 
     @FXML
     public void initialize() {
-        mods = DatabaseManager.getInstance().getModerators();
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        for(var mod: mods)
-            observableList.add(mod.toString());
-        listaMod.setItems(observableList);
+        mods = FXCollections.observableArrayList(DatabaseManager.getInstance().getModerators())   ;
+        listaMod.setItems(mods);
         listaMod.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         System.out.println(listaMod);
     }
@@ -45,8 +42,7 @@ public class ModeratorListController {
     void changestatus(ActionEvent event) {
         try {
             if(listaMod.getSelectionModel().getSelectedItem()!=null) {
-
-                DatabaseManager.getInstance().setModeratorCzatu(mods.get(listaMod.getSelectionModel().getSelectedIndex()));
+                DatabaseManager.getInstance().setModeratorCzatu(listaMod.getSelectionModel().getSelectedItem());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlNames.MAINMENU));
                 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 currentStage.setScene(new Scene(loader.load()));
